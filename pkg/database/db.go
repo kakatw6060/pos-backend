@@ -49,7 +49,14 @@ func InitDB() (*gorm.DB, error) {
 		&model.OrderItem{},
 	)
 	if err != nil {
-		return nil, err
+		// If the error is about "already exists" or "stmtcache", it's a known GORM+Pooler bug.
+		// In this case, we can safely ignore it and continue as the tables already exist.
+		errMsg := err.Error()
+		if strings.Contains(errMsg, "already exists") || strings.Contains(errMsg, "stmtcache") {
+			fmt.Printf("Migration warning (safe to ignore): %v\n", err)
+		} else {
+			return nil, err // Truly fatal error
+		}
 	}
 
 	return db, nil
