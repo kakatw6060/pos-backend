@@ -18,10 +18,10 @@ func main() {
 	}
 
 	// 2. Init Repositories
-	userRepo := gorm.NewUserRepository(db)
-	catRepo := gorm.NewCategoryRepository(db)
-	prodRepo := gorm.NewProductRepository(db)
-	orderRepo := gorm.NewOrderRepository(db)
+	userRepo := gormrepo.NewUserRepository(db)
+	catRepo := gormrepo.NewCategoryRepository(db)
+	prodRepo := gormrepo.NewProductRepository(db)
+	orderRepo := gormrepo.NewOrderRepository(db)
 
 	// 3. Init Handlers
 	userH := &handler.BaseHandler[model.User]{Repo: userRepo}

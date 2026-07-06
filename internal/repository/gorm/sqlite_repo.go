@@ -1,4 +1,4 @@
-package sqlite
+package gormrepo
 
 import (
 	"pos-backend/internal/model"
