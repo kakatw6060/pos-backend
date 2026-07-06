@@ -6,7 +6,6 @@ import (
 	"pos-backend/internal/model"
 
 	"gorm.io/driver/postgres"
-	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -21,14 +20,8 @@ func InitDB() (*gorm.DB, error) {
 			return nil, fmt.Errorf("DB_URL environment variable is required for postgres")
 		}
 		dialector = postgres.Open(dsn)
-	case "sqlite":
-		fallthrough
 	default:
-		dbPath := os.Getenv("DB_PATH")
-		if dbPath == "" {
-			dbPath = "pos.db"
-		}
-		dialector = sqlite.Open(dbPath)
+		return nil, fmt.Errorf("unsupported or missing DB_TYPE. Please set DB_TYPE=postgres")
 	}
 
 	db, err := gorm.Open(dialector, &gorm.Config{})

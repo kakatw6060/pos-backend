@@ -4,7 +4,7 @@ import (
 	"log"
 	"pos-backend/internal/handler"
 	"pos-backend/internal/model"
-	"pos-backend/internal/repository/sqlite"
+	"pos-backend/internal/repository/gorm"
 	"pos-backend/pkg/database"
 
 	"github.com/gin-gonic/gin"
@@ -18,10 +18,10 @@ func main() {
 	}
 
 	// 2. Init Repositories
-	userRepo := sqlite.NewUserRepository(db)
-	catRepo := sqlite.NewCategoryRepository(db)
-	prodRepo := sqlite.NewProductRepository(db)
-	orderRepo := sqlite.NewOrderRepository(db)
+	userRepo := gorm.NewUserRepository(db)
+	catRepo := gorm.NewCategoryRepository(db)
+	prodRepo := gorm.NewProductRepository(db)
+	orderRepo := gorm.NewOrderRepository(db)
 
 	// 3. Init Handlers
 	userH := &handler.BaseHandler[model.User]{Repo: userRepo}
