@@ -24,7 +24,9 @@ func InitDB() (*gorm.DB, error) {
 		return nil, fmt.Errorf("unsupported or missing DB_TYPE. Please set DB_TYPE=postgres")
 	}
 
-	db, err := gorm.Open(dialector, &gorm.Config{})
+	db, err := gorm.Open(dialector, &gorm.Config{
+		PrepareStmt: false,
+	})
 	if err != nil {
 		return nil, err
 	}
